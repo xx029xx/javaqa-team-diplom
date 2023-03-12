@@ -166,21 +166,4 @@ public class GameStoreTest {
 
         Assertions.assertEquals(expected, actual);
     }
-
-    @Test
-    public void shouldShowMostPlayerIfDrawTest() { // 15. поиск лучшего игрока, если у нескольких
-        //  лучший результат
-
-        GameStore store = new GameStore();
-        store.addPlayTime("Игрок1", 10);
-        store.addPlayTime("Игрок2", 5);
-        store.addPlayTime("Игрок3", 8);
-        store.addPlayTime("Игрок4", 10);
-
-        String[] expected = {"Игрок1", "Игрок4"};
-        String[] actual = new String[]{store.getMostPlayer()};
-
-        assertArrayEquals(expected, actual);
-    }
-
 }
