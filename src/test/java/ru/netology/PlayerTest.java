@@ -198,4 +198,12 @@ public class PlayerTest {
     }
 
 
+    @Test
+    public void testShouldAddedGetTitle() {
+        GameStore store = new GameStore();
+        Game game = store.publishGame("Нетология Баттл Онлайн", "Аркады");
+
+        assertEquals("Нетология Баттл Онлайн", game.getTitle());
+    }
+
 }
