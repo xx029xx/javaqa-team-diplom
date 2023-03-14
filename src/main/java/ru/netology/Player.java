@@ -21,17 +21,6 @@ public class Player {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Map<Game, Integer> getPlayedTime() {
-        return playedTime;
-    }
-
-    public void setPlayedTime(Map<Game, Integer> playedTime) {
-        this.playedTime = playedTime;
-    }
 
     /**
      * добавление игры игроку
