@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import javax.management.relation.RelationServiceNotRegisteredException;
+import java.time.Year;
 
 public class PlayerTest {
 
@@ -21,6 +22,7 @@ public class PlayerTest {
         int actual = player.sumGenre(game.getGenre());
         assertEquals(expected, actual);
     }
+
 
     @Test
     public void testShouldSumGenreIfThreeGamesOfTheSameGenre() {
@@ -140,9 +142,60 @@ public class PlayerTest {
 
         Player player = new Player("Petya");
 
-        assertThrows(RuntimeException.class,
-                () -> player.play(game, 3)
-        );
+        assertThrows(RuntimeException.class, () -> player.play(game, 3));
     }
+
+    @Test
+    public void testWhereThereIsNoClockInTheGame() {
+        GameStore store = new GameStore();
+        Game game = store.publishGame("Нетология Баттл Онлайн", "Аркады");
+
+        Player player = new Player("Petya");
+        player.installGame(game);
+
+        assertThrows(RuntimeException.class, () -> player.play(game, 0));
+    }
+
+    @Test
+    public void testWhereIsTheNegativeClockInTheGame() {
+        GameStore store = new GameStore();
+        Game game = store.publishGame("Нетология Баттл Онлайн", "Аркады");
+
+        Player player = new Player("Petya");
+        player.installGame(game);
+
+        assertThrows(RuntimeException.class, () -> player.play(game, -1));
+    }
+
+    @Test
+    public void testCheckName() {
+        GameStore store = new GameStore();
+        Game game = store.publishGame("Нетология Баттл Онлайн", "Аркады");
+
+        Player player = new Player("Petya");
+        player.installGame(game);
+
+        assertEquals("Petya", player.getName());
+
+    }
+
+    @Test
+    public void testShouldSumGenreIfOneGameAndTwoPlayers() {
+        GameStore store = new GameStore();
+        Game game = store.publishGame("Нетология Баттл Онлайн", "Аркады");
+
+        Player player = new Player("Petya");
+        Player player1 = new Player("Roman");
+        player.installGame(game);
+        player1.installGame(game);
+
+        player.play(game, 3);
+        player1.play(game, 3);
+
+        int expected = 3;
+        int actual = player1.sumGenre(game.getGenre());
+        assertEquals(expected, actual);
+    }
+
 
 }
